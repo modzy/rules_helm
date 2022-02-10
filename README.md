@@ -1,7 +1,5 @@
 # bazel rules
 
-![Build Status](https://github.com/masmovil/bazel-rules/actions/workflows/integration-tests.yaml/badge.svg)
-
 This repository contains Bazel rules to install and manipulate Helm charts with Bazel.
 
 This repo implements the following bazel rules:
@@ -31,23 +29,23 @@ In your Bazel `WORKSPACE` file, after the [rules_docker](https://github.com/baze
 
 ```python
 git_repository(
-    name = "com_github_masmovil_bazel_rules",
+    name = "com_github_modzy_rules_helm",
     # tag = "0.2.2",
     commit = "commit-ref",
-    remote = "https://github.com/masmovil/bazel-rules.git",
+    remote = "https://github.com/modzy/rules_helm.git",
 )
 
 load(
-    "@com_github_masmovil_bazel_rules//repositories:repositories.bzl",
-    mm_repositories = "repositories",
+    "@com_github_modzy_rules_helm//repositories:repositories.bzl",
+    helm_repositories = "repositories",
 )
-mm_repositories()
+helm_repositories()
 ```
 
 After the intial setup, you can use the rules including them in your BUILD files:
 
 ```python
-load("@com_github_masmovil_bazel_rules//helm:helm.bzl", "helm_chart", "helm_push", "helm_release")
+load("@com_github_modzy_rules_helm//helm:helm.bzl", "helm_chart", "helm_push", "helm_release")
 
 helm_chart(
     name = "my_chart",
@@ -238,7 +236,7 @@ Decrypting secrets using [sops](https://github.com/mozilla/sops) is now supporte
 To install `sops_decrypt` rule, import in your `BUILD.bazel`
 
 ```python
-load("@com_github_masmovil_bazel_rules//sops:sops.bzl", "sops_decrypt")
+load("@com_github_modzy_rules_helm//sops:sops.bzl", "sops_decrypt")
 ```
 
 ### sops_decrypt
@@ -305,7 +303,7 @@ bazel build :decrypt_secret_files --action_env=GOOGLE_APPLICATION_CREDENTIALS=${
 Import in your `BUILD.bazel`
 
 ```python
-load("@com_github_masmovil_bazel_rules//k8s:k8s.bzl", "k8s_namespace")
+load("@com_github_modzy_rules_helm//k8s:k8s.bzl", "k8s_namespace")
 
 ```
 
@@ -369,7 +367,7 @@ The following attributes are accepted by the rule (some of them are mandatory).
 Import in your `BUILD.bazel`
 
 ```python
-load("@com_github_masmovil_bazel_rules//gcs:gcs.bzl", "gcs_upload")
+load("@com_github_modzy_rules_helm//gcs:gcs.bzl", "gcs_upload")
 
 ```
 

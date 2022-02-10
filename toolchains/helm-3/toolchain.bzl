@@ -37,7 +37,7 @@ def _helm_toolchain_configure_impl(repository_ctx):
 
     repository_ctx.template(
         "BUILD",
-        Label("@com_github_masmovil_bazel_rules//toolchains/helm-3:BUILD.tpl"),
+        Label("@com_github_modzy_rules_helm//toolchains/helm-3:BUILD.tpl"),
         {
             "%{HOME}": "%s" % environ["HOME"],
         },

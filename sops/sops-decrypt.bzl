@@ -19,10 +19,10 @@ def _sops_decrypt_impl(ctx):
     inputs = [ctx.file.sops_yaml] + ctx.files.srcs
     outputs = []
 
-    sops = ctx.toolchains["@com_github_masmovil_bazel_rules//toolchains/sops:toolchain_type"].sopsinfo.tool.files.to_list()[0]
+    sops = ctx.toolchains["@com_github_modzy_rules_helm//toolchains/sops:toolchain_type"].sopsinfo.tool.files.to_list()[0]
     sops_yaml = ctx.file.sops_yaml.path
 
-    gpg = ctx.toolchains["@com_github_masmovil_bazel_rules//toolchains/gpg:toolchain_type"].gpginfo.tool.files.to_list()[0]
+    gpg = ctx.toolchains["@com_github_modzy_rules_helm//toolchains/gpg:toolchain_type"].gpginfo.tool.files.to_list()[0]
 
     inputs += [gpg, sops]
 
@@ -70,8 +70,8 @@ sops_decrypt = rule(
       "_script_template": attr.label(allow_single_file = True, default = ":sops-decrypt.sh.tpl"),
     },
     toolchains = [
-        "@com_github_masmovil_bazel_rules//toolchains/sops:toolchain_type",
-        "@com_github_masmovil_bazel_rules//toolchains/gpg:toolchain_type"
+        "@com_github_modzy_rules_helm//toolchains/sops:toolchain_type",
+        "@com_github_modzy_rules_helm//toolchains/gpg:toolchain_type"
     ],
     doc = "Runs sops decrypt to decrypt secret files",
 )

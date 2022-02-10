@@ -2,7 +2,7 @@ package(default_visibility = ["//visibility:public"])
 
 load("//helm:helm.bzl", "helm_chart", "helm_release", "helm_push")
 load("//k8s:k8s.bzl", "k8s_namespace")
-load("@com_github_masmovil_bazel_rules//sops:sops.bzl", "sops_decrypt")
+load("@com_github_modzy_rules_helm//sops:sops.bzl", "sops_decrypt")
 
 helm_chart(
   name = "nginx_chart",
