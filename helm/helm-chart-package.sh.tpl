@@ -49,6 +49,10 @@ if  [ -z $DIGEST_PATH ]; then
         echo "Replaced image tag in chart values.yaml with: $IMAGE_TAG"
     fi
 
+    if [ -z $APP_VERSION ]; then
+      export APP_VERSION=$IMAGE_TAG
+    fi
+
 fi
 
 # Application docker image is provided by other docker bazel rule
@@ -75,12 +79,17 @@ if [ -n $DIGEST_PATH ] && [ "$DIGEST_PATH" != "" ]; then
     if ([ -n $REPO_URL ] || [ -n $REPO_SUFIX ]) && ([[ $REPO_URL != *"$REPO_SUFIX" ]] || [[ -z "$REPO_SUFIX" ]]); then
         {YQ_PATH} w -i {CHART_VALUES_PATH} {VALUES_REPO_YAML_PATH} ${REPO_URL}${REPO_SUFIX}
     fi
+
+    if [ -z $APP_VERSION ]; then
+      export APP_VERSION=$DIGEST_SHA
+    fi
+
 fi
 
 #{HELM_PATH} env
 
 # {HELM_PATH} repo list
-{HELM_PATH} package {CHART_PATH} --dependency-update --destination {PACKAGE_OUTPUT_PATH} --app-version {APP_VERSION} --version $HELM_CHART_VERSION 1>>/dev/null
+{HELM_PATH} package {CHART_PATH} --dependency-update --destination {PACKAGE_OUTPUT_PATH} --app-version $APP_VERSION --version $HELM_CHART_VERSION 1>>/dev/null
 
 mv {PACKAGE_OUTPUT_PATH}/{HELM_CHART_NAME}-$HELM_CHART_VERSION.tgz {PACKAGE_OUTPUT_PATH}/{HELM_CHART_NAME}.tgz
 

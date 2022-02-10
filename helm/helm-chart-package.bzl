@@ -27,7 +27,7 @@ def _helm_chart_impl(ctx):
     digest_path = ""
     image_tag = ""
     helm_chart_version = get_make_value_or_default(ctx, ctx.attr.helm_chart_version)
-    app_version = get_make_value_or_default(ctx, ctx.attr.app_version or helm_chart_version)
+    app_version = get_make_value_or_default(ctx, ctx.attr.app_version)
     yq = ctx.toolchains["@com_github_modzy_rules_helm//toolchains/yq:toolchain_type"].yqinfo.tool.files.to_list()[0]
     stamp_files = [ctx.info_file, ctx.version_file]
     helm_toolchain = ctx.toolchains["@com_github_modzy_rules_helm//toolchains/helm-3:toolchain_type"].helminfo
