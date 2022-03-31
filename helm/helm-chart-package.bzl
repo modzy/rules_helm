@@ -170,7 +170,7 @@ helm_chart = rule(
         "image": attr.label(allow_single_file = True, mandatory = False),
         "image_tag": attr.string(mandatory = False),
         "package_name": attr.string(mandatory = True),
-        "helm_chart_version": attr.string(mandatory = False, default = "1.0.0"),
+        "helm_chart_version": attr.string(mandatory = False),
         "app_version": attr.string(mandatory = False),
         "image_repository": attr.string(),
         "values_repo_yaml_path": attr.string(default = "image.repository"),
