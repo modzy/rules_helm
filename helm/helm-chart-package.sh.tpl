@@ -36,7 +36,7 @@ chmod 777 {CHART_VALUES_PATH}
 
 # If an explicit chart version is not defined, use the value in Chart.yaml.
 if [ -z $HELM_CHART_VERSION ]; then
-  export HELM_CHART_VERSION=$({YQ_PATH} r {CHART_VALUES_PATH} 'version')
+  export HELM_CHART_VERSION=$({YQ_PATH} r {CHART_MANIFEST_PATH} 'version')
 fi
 
 # Application docker image is not provided by other docker bazel rule
